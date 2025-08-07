@@ -1,0 +1,61 @@
+{
+  "hero": {
+    "image": "default_image.jpg",
+    "title": "Welcome to Our Coffee Haven",
+    "subtitle": "Crafting the perfect cup just for you.",
+    "button_text": "Explore Menu"
+  },
+  "about": {
+    "who": "We are passionate coffee artisans, dedicated to crafting the perfect cup for every guest.",
+    "why": "Choose us for our premium beans, expert baristas, and cozy atmosphere."
+  },
+  "menu": [
+    {
+      "name": "Midnight Espresso",
+      "description": "Double shot of our signature dark roast.",
+      "price": "$4.50",
+      "image": "default_image.jpg"
+    },
+    {
+      "name": "Caramel Dream",
+      "description": "Smooth latte with house-made caramel.",
+      "price": "$5.50",
+      "image": "default_image.jpg"
+    },
+    {
+      "name": "Mocha Bliss",
+      "description": "Rich chocolate and espresso fusion.",
+      "price": "$5.00",
+      "image": "default_image.jpg"
+    }
+  ],
+  "team": [
+
+  ],
+  "contact": {
+    "address": "321 Awesome Street, New York, NY 12345",
+    "email": "info@example.com",
+    "phone": "+1 (555) 123-4567",
+    "map_provider": "openstreet",
+    "map_location": "321 Awesome Street, New York, NY 12345",
+    "map_lat": 0,
+    "map_lng": 0,
+    "google_maps_api_key": ""
+  },
+  "footer": {
+    "hours": [
+      {
+        "days": "Monday - Friday",
+        "time": "6am - 10pm"
+      },
+      {
+        "days": "Saturday - Sunday",
+        "time": "7am - 11pm"
+      }
+    ],
+    "address": "123 Coffee Street",
+    "city": "Brewville, BV 12345",
+    "phone": "+1 (555) 123-4567",
+    "email": "info@example.com"
+  }
+}

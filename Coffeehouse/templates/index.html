@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee House - Premium Coffee Experience</title>
+    <link rel="icon" type="image/x-icon" href="/static/img/{{ content.favicon if content.favicon else 'favicon.ico' }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #F4A460;
+            --text-dark: #2C1810;
+            --text-light: #6B4E3D;
+            --bg-light: #FFF8F0;
+            --white: #FFFFFF;
+            --shadow-light: 0 4px 20px rgba(139, 69, 19, 0.08);
+            --shadow-medium: 0 8px 32px rgba(139, 69, 19, 0.12);
+            --shadow-heavy: 0 16px 48px rgba(139, 69, 19, 0.16);
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --gradient-overlay: linear-gradient(135deg, rgba(139, 69, 19, 0.8), rgba(210, 105, 30, 0.6));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background-color: var(--bg-light);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        .line {
+            overflow: hidden;
+            padding-bottom: 0.1em;
+        }
+
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+        }
+
+        .navbar-custom.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-medium);
+            padding: 0.5rem 0;
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary-color) !important;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            border-radius: 8px;
+        }
+
+        .nav-link {
+            color: var(--text-dark) !important;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 80%;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            background: var(--gradient-overlay), url('/static/img/{{ content.hero.image if content.hero.image else "default_image.jpg" }}') center/cover no-repeat fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: white;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            visibility: hidden;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .hero-btn {
+            background: var(--gradient-primary);
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        }
+
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-divider {
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-primary);
+            margin: 0 auto 3rem;
+            border-radius: 2px;
+        }
+
+        .menu-section {
+            background: var(--bg-light);
+        }
+
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-btn {
+            background: white;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.7rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .menu-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-card:hover .menu-image {
+            transform: scale(1.05);
+        }
+
+        .menu-content {
+            padding: 2rem;
+        }
+
+        .menu-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .menu-description {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .menu-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            background: var(--bg-light);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            display: inline-block;
+        }
+
+        .signature-section {
+            background: white;
+        }
+
+        .signature-carousel {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .signature-slide {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            padding: 2rem;
+        }
+
+        .signature-image {
+            flex: 1;
+            max-height: 400px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .signature-content {
+            flex: 1;
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 1;
+        }
+
+        .carousel-control-prev {
+            left: -30px;
+        }
+
+        .carousel-control-next {
+            right: -30px;
+        }
+
+        .about-section {
+            background: var(--bg-light);
+        }
+
+        .about-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow-light);
+            margin-bottom: 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient-primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -1.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--primary-color);
+        }
+
+        .timeline-year {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-section {
+            background: white;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .team-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 4px solid var(--accent-color);
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover .team-image {
+            border-color: var(--primary-color);
+        }
+
+        .team-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .team-bio {
+            color: var(--text-light);
+            line-height: 1.6;
+            opacity: 0.8;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover .team-bio {
+            max-height: 200px;
+            opacity: 1;
+        }
+
+        .contact-section {
+            background: var(--bg-light);
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow-light);
+            height: 100%;
+        }
+
+        .contact-form-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--bg-light);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.1);
+            background: white;
+        }
+
+        .contact-btn {
+            background: var(--gradient-primary);
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-info-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .contact-info-text {
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        .map-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            height: 300px;
+            width: 400px;
+            position: relative;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 20px;
+        }
+
+        .map-error {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: var(--bg-light);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-title {
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-light);
+            color: white;
+        }
+
+        .footer-divider {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .signature-slide {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-link {
+                margin: 0.2rem 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .contact-card,
+            .about-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#home">
+                <img src="/static/img/{{ content.logo if content.logo else 'default_image.jpg' }}" alt="Coffee House Logo"
+                    class="logo-img">
+                <span class="ms-2">Coffee House</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#signature">Signature</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#menu">Menu</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#team">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">{{ content.hero.title }}</h1>
+            <p class="hero-subtitle">{{ content.hero.subtitle }}</p>
+            <a href="#menu" class="btn hero-btn">Explore Our Menu</a>
+        </div>
+    </section>
+
+    <section id="signature" class="section signature-section">
+        <div class="container">
+            <h2 class="section-title">Signature Creations</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">Discover our carefully curated selection of premium beverages, each crafted with
+                passion and precision.</p>
+
+            <div id="signatureCarousel" class="carousel slide signature-carousel" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for drink in content.menu[:4] %}
+                    <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+                        <div class="signature-slide">
+                            <div class="signature-image-container">
+                                <img src="/static/img/{{ drink.image }}" class="signature-image img-fluid"
+                                    alt="{{ drink.name }}">
+                            </div>
+                            <div class="signature-content">
+                                <h3 class="menu-title">{{ drink.name }}</h3>
+                                <p class="menu-description">{{ drink.description }}</p>
+                                <span class="menu-price">{{ drink.price }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#signatureCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#signatureCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="section menu-section">
+        <div class="container">
+            <h2 class="section-title">Our Menu</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">From rich espressos to indulgent desserts, explore our full range of handcrafted
+                beverages and treats.</p>
+
+            <div class="category-filters">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="espresso">Espresso</button>
+                <button class="category-btn" data-category="latte">Latte</button>
+                <button class="category-btn" data-category="dessert">Dessert</button>
+                <button class="category-btn" data-category="non-coffee">Non-Coffee</button>
+            </div>
+
+            <div class="menu-grid">
+                {% for drink in content.menu %}
+                <div class="menu-card" data-category="{{ drink.category|default('all') }}">
+                    <img src="/static/img/{{ drink.image }}" alt="{{ drink.name }}" class="menu-image">
+                    <div class="menu-content">
+                        <h3 class="menu-title">{{ drink.name }}</h3>
+                        <p class="menu-description">{{ drink.description }}</p>
+                        <span class="menu-price">{{ drink.price }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section about-section">
+        <div class="container">
+            <h2 class="section-title">Our Story</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">From humble beginnings to becoming a beloved destination for coffee enthusiasts.
+            </p>
+
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="about-card">
+                        <h3 class="contact-form-title">Our Journey</h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <span class="timeline-dot"></span>
+                                <span class="timeline-year">2010</span>
+                                <p>Founded with a vision to bring authentic European coffee culture to our community.
+                                </p>
+                            </div>
+                            <div class="timeline-item">
+                                <span class="timeline-dot"></span>
+                                <span class="timeline-year">2015</span>
+                                <p>Awarded "Best Coffee Experience" by the Regional Food & Beverage Association.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <span class="timeline-dot"></span>
+                                <span class="timeline-year">2020</span>
+                                <p>Expanded to multiple locations while maintaining our artisanal approach.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <span class="timeline-dot"></span>
+                                <span class="timeline-year">2025</span>
+                                <p>Continuing to innovate while honoring traditional coffee craftsmanship.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-card">
+                        <h3 class="contact-form-title">Who We Are</h3>
+                        <p class="mb-4">{{ content.about.who }}</p>
+
+                        <h3 class="contact-form-title">Why Choose Us?</h3>
+                        <p>{{ content.about.why }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="section team-section">
+        <div class="container">
+            <h2 class="section-title">Meet Our Team</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">The passionate individuals behind every perfect cup.</p>
+
+            <div class="row g-4">
+                {% for member in content.team %}
+                <div class="col-md-6 col-lg-3">
+                    <div class="team-card">
+                        <img src="/static/img/team/{{ member.image }}" alt="{{ member.name }}" class="team-image">
+                        <h4 class="team-name">{{ member.name }}</h4>
+                        <div class="team-bio">{{ member.bio }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">We'd love to hear from you. Send us a message or visit us today.</p>
+
+            <div class="row g-4">
+                <div class="col-lg-7">
+                    <div class="contact-card">
+                        <h3 class="contact-form-title">Send us a message</h3>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show"
+                            role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+
+                        <form id="contactForm" method="POST" action="/contact" class="needs-validation" novalidate>
+                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <div class="mb-4">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Your Name"
+                                    required>
+                                <div class="invalid-feedback">Please enter your name.</div>
+                            </div>
+                            <div class="mb-4">
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Your Email" required>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+                            <div class="mb-4">
+                                <textarea class="form-control" id="message" name="message" rows="5"
+                                    placeholder="Your Message" required minlength="10"></textarea>
+                                <div class="invalid-feedback">Please enter a message (at least 10 characters).</div>
+                            </div>
+                            <button type="submit" class="btn contact-btn">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="contact-card">
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="contact-info-title">Address</h4>
+                                <p class="contact-info-text">{{ content.contact.address }}</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="contact-info-title">Email</h4>
+                                <p class="contact-info-text">{{ content.contact.email }}</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="contact-info-title">Phone</h4>
+                                <p class="contact-info-text">{{ content.contact.phone }}</p>
+                            </div>
+                        </div>
+
+                        <div class="social-links mt-4">
+                            <a href="#" class="social-link" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link" title="Facebook">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a href="#" class="social-link" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <h4 class="footer-title">Coffee House</h4>
+                    <p class="footer-text">Crafting perfect moments, one cup at a time. Experience the finest coffee
+                        culture in a warm, welcoming atmosphere.</p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="social-link" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" title="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h4 class="footer-title">Opening Hours</h4>
+                    {% for hour in content.footer.hours %}
+                    <p class="footer-text">
+                        <strong>{{ hour.days }}:</strong> {{ hour.time }}
+                    </p>
+                    {% endfor %}
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h4 class="footer-title">Contact Info</h4>
+                    <p class="footer-text">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        {{ content.footer.address }}, {{ content.footer.city }}
+                    </p>
+                    <p class="footer-text">
+                        <i class="fas fa-phone me-2"></i>
+                        {{ content.footer.phone }}
+                    </p>
+                    <p class="footer-text">
+                        <i class="fas fa-envelope me-2"></i>
+                        {{ content.footer.email }}
+                    </p>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="#home" class="footer-text text-decoration-none">Home</a>
+                        <a href="#menu" class="footer-text text-decoration-none">Our Menu</a>
+                        <a href="#about" class="footer-text text-decoration-none">About Us</a>
+                        <a href="#contact" class="footer-text text-decoration-none">Contact</a>
+                    </div>
+                </div>
+
+                <div class=" mt-4">
+                    {% if content.contact.map_provider == 'google' %}
+                    {% if content.contact.map_lat and content.contact.map_lng %}
+                    <iframe loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps/embed/v1/place?key={{ content.contact.google_maps_api_key or 'demo' }}&q={{ content.contact.map_lat }},{{ content.contact.map_lng }}&zoom=15&maptype=roadmap">
+                    </iframe>
+                    {% else %}
+                    <iframe loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps/embed/v1/place?key={{ content.contact.google_maps_api_key or 'demo' }}&q={{ content.contact.map_location|urlencode }}">
+                    </iframe>
+                    {% endif %}
+                    {% else %}
+                    {% if content.contact.map_lat and content.contact.map_lng %}
+                    <iframe
+                        src="https://www.openstreetmap.org/export/embed.html?bbox={{ content.contact.map_lng|float - 0.01 }},{{ content.contact.map_lat|float - 0.01 }},{{ content.contact.map_lng|float + 0.01 }},{{ content.contact.map_lat|float + 0.01 }}&layer=mapnik&marker={{ content.contact.map_lat }},{{ content.contact.map_lng }}"
+                        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    {% else %}
+                    <div class="map-error">
+                        <div>
+                            <i class="fas fa-map-marker-alt fa-3x mb-3 text-muted"></i>
+                            <h5>Find Us Here</h5>
+                            <p>{{ content.contact.map_location or content.contact.address }}</p>
+                            <a href="https://www.openstreetmap.org/search?query={{ (content.contact.map_location or content.contact.address)|urlencode }}"
+                                target="_blank" class="btn btn-outline-primary btn-sm">
+                                View on OpenStreetMap
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <hr class="footer-divider my-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="footer-copyright">&copy; 2025 Coffee House. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="footer-copyright">
+                        <a href="#" class="text-decoration-none footer-text">Privacy Policy</a> |
+                        <a href="#" class="text-decoration-none footer-text">Terms of Service</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, SplitType);
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        gsap.to(window, {
+                            duration: 1.5,
+                            scrollTo: {
+                                y: target,
+                                offsetY: 70
+                            },
+                            ease: "power3.inOut"
+                        });
+                    }
+                });
+            });
+
+            function animateHero() {
+                gsap.set(".hero-title", { visibility: "visible" });
+
+                const heroTitle = new SplitType('.hero-title', { types: 'words, chars' });
+                const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+
+                tl.from(heroTitle.chars, {
+                    y: 100,
+                    opacity: 0,
+                    rotationZ: -10,
+                    stagger: 0.03,
+                    duration: 1,
+                    color: '#FFFFFF'
+                })
+                .from(".hero-subtitle", { y: 30, opacity: 0, duration: 1 }, "-=0.8")
+                gsap.to(".hero-section", {
+                    scrollTrigger: {
+                        trigger: ".hero-section",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true
+                    },
+                    backgroundPosition: "50% 70%"
+                });
+            }
+
+            function animateSections() {
+                document.querySelectorAll('.section-title').forEach(title => {
+                    const splitTitle = new SplitType(title, { types: 'chars, words' });
+                    gsap.from(splitTitle.chars, {
+                        scrollTrigger: {
+                            trigger: title,
+                            start: 'top 85%',
+                            toggleActions: 'play none none none',
+                        },
+                        opacity: 0,
+                        y: 50,
+                        duration: 0.8,
+                        ease: 'power3.out',
+                        stagger: 0.05
+                    });
+                });
+
+                gsap.from(".section-divider", {
+                    scrollTrigger: {
+                        trigger: ".section-divider",
+                        start: "top 90%",
+                        toggleActions: 'play none none none',
+                    },
+                    scaleX: 0,
+                    duration: 1.5,
+                    ease: "expo.out"
+                });
+
+                document.querySelectorAll(".menu-card, .team-card").forEach(card => {
+                    gsap.from(card, {
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 90%",
+                            toggleActions: "play none none none",
+                        },
+                        opacity: 0,
+                        y: 60,
+                        rotationZ: 2,
+                        duration: 1,
+                        ease: "power3.out"
+                    });
+                });
+
+                document.querySelectorAll('.timeline-item').forEach(item => {
+                    gsap.from(item, {
+                        scrollTrigger: {
+                            trigger: item,
+                            start: "top 85%",
+                            toggleActions: "play none none none"
+                        },
+                        x: -50,
+                        opacity: 0,
+                        duration: 1.2,
+                        ease: "power3.out"
+                    });
+                });
+            }
+
+            function setupCarouselAnimations() {
+                const signatureCarousel = document.getElementById('signatureCarousel');
+                if (signatureCarousel) {
+                    signatureCarousel.addEventListener('slide.bs.carousel', function (e) {
+                        const activeItem = e.relatedTarget;
+                        const image = activeItem.querySelector('.signature-image');
+                        const content = activeItem.querySelector('.signature-content').children;
+
+                        const tl = gsap.timeline();
+                        tl.from(image, { opacity: 0, scale: 0.8, rotation: 5, duration: 0.8, ease: "power3.out" })
+                          .from(content, { opacity: 0, y: 40, stagger: 0.15, duration: 0.6, ease: "power3.out" }, "-=0.5");
+                    });
+                }
+            }
+            
+            function setupNavbarScroll() {
+                ScrollTrigger.create({
+                    start: 'top -100',
+                    end: 99999,
+                    toggleClass: { className: 'scrolled', targets: '.navbar-custom' }
+                });
+            }
+
+            animateHero();
+            animateSections();
+            setupCarouselAnimations();
+            setupNavbarScroll();
+
+
+            window.addEventListener('scroll', function () {
+                const sections = document.querySelectorAll('section[id]');
+                const navLinks = document.querySelectorAll('.nav-link');
+                let currentSection = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    if (window.scrollY >= sectionTop) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            }, { passive: true });
+
+            document.querySelectorAll('.category-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    const category = this.getAttribute('data-category');
+                    const menuCards = document.querySelectorAll('.menu-card');
+                    menuCards.forEach(card => {
+                        const cardCategory = card.getAttribute('data-category');
+                        const shouldShow = category === 'all' || cardCategory === category || !cardCategory;
+                        gsap.to(card, {
+                            duration: 0.4,
+                            autoAlpha: shouldShow ? 1 : 0,
+                            y: shouldShow ? 0 : 20,
+                            scale: shouldShow ? 1 : 0.95,
+                            display: shouldShow ? 'block' : 'none',
+                            ease: "power3.out"
+                        });
+                    });
+                });
+            });
+
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function (event) {
+                    if (!contactForm.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    } else {
+                        const submitBtn = contactForm.querySelector('button[type="submit"]');
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+                        submitBtn.disabled = true;
+                    }
+                    contactForm.classList.add('was-validated');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
