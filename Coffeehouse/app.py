@@ -94,7 +94,7 @@ def api_update():
     data = request.json
 
     hero = data.get('hero', {})
-    if not hero.get('title') or not hero.get('subtitle') or not hero.get('button_text') or not hero.get('button_link'):
+    if not hero.get('title') or not hero.get('subtitle') or not hero.get('button_text'):
         return jsonify({'error': 'All hero section fields are required.'}), 400
 
     about = data.get('about', {})
